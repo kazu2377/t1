@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ダッシュボード</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+        .logout-btn {
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+        .dashboard-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .success-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .info-section {
+            margin-top: 30px;
+        }
+        .info-section h3 {
+            color: #555;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ダッシュボード</h1>
+        <a href="index.html" class="logout-btn">ログアウト</a>
+    </div>
+    
+    <div class="dashboard-content">
+        <div class="success-badge">✅ ログイン成功</div>
+        
+        <h2>ようこそ！</h2>
+        <p>ログイン認証が正常に完了しました。</p>
+        
+        <div class="info-section">
+            <h3>システム情報</h3>
+            <ul>
+                <li>最終ログイン: <span id="loginTime"></span></li>
+                <li>認証ステータス: 正常</li>
+                <li>セッション: アクティブ</li>
+            </ul>
+        </div>
+        
+        <div class="info-section">
+            <h3>利用可能なテストアカウント</h3>
+            <ul>
+                <li>user1 / password1</li>
+                <li>admin / admin123</li>
+                <li>test / test123</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 現在時刻を表示
+        document.getElementById('loginTime').textContent = new Date().toLocaleString('ja-JP');
+    </script>
+</body>
+</html>
