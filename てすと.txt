@@ -1,2 +1,2 @@
 test.txt
-kanagawa
+ローカル変更
