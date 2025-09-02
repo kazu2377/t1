@@ -6,11 +6,11 @@
     <title>ご注文内容の確認</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-50">
+  <body class="bg-gray-50" dir="rtl">
     <div class="max-w-sm mx-auto bg-white shadow-lg min-h-screen">
       <!-- Header -->
       <header class="p-4 border-b">
-        <div class="flex items-center">
+        <div class="flex items-center justify-end">
           <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M15 19l-7-7 7-7"
+                d="M9 5l7 7-7 7"
               />
             </svg>
           </button>
@@ -32,7 +32,7 @@
 
       <main class="p-6">
         <!-- Progress and Title -->
-        <div class="flex items-center mb-6">
+        <div class="flex items-center mb-6 flex-row-reverse">
           <div class="relative w-16 h-16">
             <svg class="w-full h-full" viewBox="0 0 36 36">
               <path
@@ -59,7 +59,7 @@
               <span class="text-lg font-bold text-green-500">3<span class="text-sm">/</span>4</span>
             </div>
           </div>
-          <div class="ml-4">
+          <div class="mr-4 text-right">
             <h1 class="text-xl font-bold">ご注文内容の確認</h1>
             <p class="text-sm text-gray-500">お間違いないか、ご確認ください</p>
           </div>
@@ -67,19 +67,19 @@
 
         <!-- Order Summary -->
         <div class="bg-gray-100 rounded-lg p-4 mb-6">
-          <div class="flex justify-between text-gray-700 mb-2">
+          <div class="flex justify-between text-gray-700 mb-2 flex-row-reverse">
             <span>商品(5)</span>
             <span>¥5,000</span>
           </div>
-          <div class="flex justify-between text-gray-700 mb-2">
+          <div class="flex justify-between text-gray-700 mb-2 flex-row-reverse">
             <span>配送料</span>
             <span>無料</span>
           </div>
-          <div class="flex justify-between text-gray-700 mb-4">
+          <div class="flex justify-between text-gray-700 mb-4 flex-row-reverse">
             <span>クーポン(C1234)</span>
             <span>- ¥1,000</span>
           </div>
-          <div class="flex justify-between font-bold text-lg border-t border-gray-300 pt-3">
+          <div class="flex justify-between font-bold text-lg border-t border-gray-300 pt-3 flex-row-reverse">
             <span>ご注文合計</span>
             <span class="text-red-500">¥4,000</span>
           </div>
@@ -87,35 +87,35 @@
 
         <!-- Delivery Address -->
         <div class="bg-gray-100 rounded-lg p-4 mb-6">
-          <h2 class="font-bold mb-3">お届け先</h2>
+          <h2 class="font-bold mb-3 text-right">お届け先</h2>
           <div class="space-y-2 text-sm">
-            <div class="flex">
-              <span class="w-24 text-gray-500">お名前</span>
-              <span class="flex-1">テスト 太郎</span>
+            <div class="flex flex-row-reverse">
+              <span class="w-24 text-gray-500 text-right">お名前</span>
+              <span class="flex-1 text-right">テスト 太郎</span>
             </div>
-            <div class="flex">
-              <span class="w-24 text-gray-500">お名前(フリガナ)</span>
-              <span class="flex-1">テスト タロウ</span>
+            <div class="flex flex-row-reverse">
+              <span class="w-24 text-gray-500 text-right">お名前(フリガナ)</span>
+              <span class="flex-1 text-right">テスト タロウ</span>
             </div>
-            <div class="flex">
-              <span class="w-24 text-gray-500">郵便番号</span>
-              <span class="flex-1">123-4567</span>
+            <div class="flex flex-row-reverse">
+              <span class="w-24 text-gray-500 text-right">郵便番号</span>
+              <span class="flex-1 text-right">123-4567</span>
             </div>
-            <div class="flex">
-              <span class="w-24 text-gray-500">住所</span>
-              <span class="flex-1">東京都XX区1-2-3</span>
+            <div class="flex flex-row-reverse">
+              <span class="w-24 text-gray-500 text-right">住所</span>
+              <span class="flex-1 text-right">東京都XX区1-2-3</span>
             </div>
-            <div class="flex">
-              <span class="w-24 text-gray-500">電話番号</span>
-              <span class="flex-1">080-1234-5678</span>
+            <div class="flex flex-row-reverse">
+              <span class="w-24 text-gray-500 text-right">電話番号</span>
+              <span class="flex-1 text-right">080-1234-5678</span>
             </div>
           </div>
         </div>
 
         <!-- Delivery Time -->
         <div class="bg-gray-100 rounded-lg p-4 mb-6">
-          <h2 class="font-bold mb-3">お届け時間</h2>
-          <div class="text-sm">
+          <h2 class="font-bold mb-3 text-right">お届け時間</h2>
+          <div class="text-sm text-right">
             <p>本日、08:00-12:00</p>
             <p class="text-xs text-gray-500">※置き配達</p>
           </div>
@@ -123,11 +123,11 @@
         <!-- Bottom CTA Area -->
         <div class="pb-6">
           <div class="bg-blue-600 rounded-lg p-4 text-white relative overflow-hidden">
-            <div class="relative z-10">
+            <div class="relative z-10 text-right">
               <p class="text-sm font-medium">あなたのアイデアを比較</p>
               <p class="text-sm">しましょうになりました</p>
             </div>
-            <div class="absolute -right-4 -top-2">
+            <div class="absolute -left-4 -top-2">
               <div class="w-16 h-16 bg-blue-400 rounded-full opacity-30"></div>
             </div>
           </div>
