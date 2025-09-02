@@ -1,23 +1,13 @@
-//コメント: この関数は2つの数値を加算し、それらが両方とも数値であることを確認する。
-/**
- * 2つの数値を加算し、結果を返します。
- * @param {number} a - 1つ目の数値
- * @param {number} b - 2つ目の数値
- * @returns {number} 加算結果
- */
-function ensureNumber(value) {
-  if (typeof value !== "number") {
-    throw new TypeError("Argument must be a number");
-  }
-}
+// vulnerable.js
+const express = require("express");
+const app = express();
 
-function add(a, b) {
-  ensureNumber(a);
-  ensureNumber(b);
-  return a + b;
-}
+app.get("/greet", (req, res) => {
+  // ❌ 脆弱：ユーザー入力をそのまま innerHTML に出力
+  const name = req.query.name;
+  res.send(`<h1>Hello ${name}</h1>`);
+});
 
-//security上問題のある関数
-function unsafeAdd(a, b) {
-  return a + b;
-}
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
