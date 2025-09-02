@@ -48,7 +48,7 @@ db.serialize(() => {
   db.run("INSERT INTO users VALUES (1, 'taro'), (2, 'hanako')");
 });
 
-// ❌ 脆弱：文字列をそのままクエリに結合
+// ❌ 脆弱：文字列をそのままクエリに結合するぞ
 app.get("/user", (req, res) => {
   const name = req.query.name;
   const sql = `SELECT * FROM users WHERE name = '${name}'`;
