@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ご注文内容の確認</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                DEFAULT: "#10B981", // emerald-500 近似（緑）
+                soft: "#d1fae5",
+              },
+              accent: "#EF4444", // 赤
+            },
+            boxShadow: {
+              card: "0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06)",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <!-- Safe area wrapper -->
+    <div class="min-h-screen flex justify-center">
+      <!-- Phone width -->
+      <main class="w-full max-w-sm bg-white">
+        <!-- Header -->
+        <header
+          class="sticky top-0 z-10 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-gray-100"
+        >
+          <div class="px-4 pt-3 pb-2 flex items-start gap-3">
+            <!-- Back button -->
+            <button
+              aria-label="戻る"
+              class="mt-1 p-2 -ml-2 rounded-full hover:bg-gray-100 active:bg-gray-200"
+            >
+              <svg
+                class="w-6 h-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <!-- Step badge 3/4 -->
+                <div
+                  class="shrink-0 w-8 h-8 rounded-full bg-brand text-white grid place-items-center text-[11px] font-semibold"
+                >
+                  3/4
+                </div>
+                <div>
+                  <h1 class="text-[17px] leading-tight font-semibold">ご注文内容の確認</h1>
+                  <p class="text-[11px] text-gray-500 leading-tight">
+                    お間違いないか、ご確認ください
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <section class="px-4 pb-24 pt-3 space-y-3">
+          <!-- Order summary card -->
+          <div class="bg-white border border-gray-100 rounded-xl shadow-card">
+            <div class="p-4">
+              <dl class="text-[13px] leading-6">
+                <div class="flex items-baseline justify-between">
+                  <dt class="text-gray-600">商品(5)</dt>
+                  <dd class="tabular-nums">¥5,000</dd>
+                </div>
+                <div class="flex items-baseline justify-between">
+                  <dt class="text-gray-600">配送料</dt>
+                  <dd class="tabular-nums text-gray-500">無料</dd>
+                </div>
+                <div class="flex items-baseline justify-between">
+                  <dt class="text-gray-600">クーポン(C1234)</dt>
+                  <dd class="tabular-nums text-rose-500">-¥1,000</dd>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-100 flex items-baseline justify-between">
+                  <dt class="text-gray-700">ご注文合計</dt>
+                  <dd class="tabular-nums text-accent text-xl font-bold">¥4,000</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <!-- Address card -->
+          <div class="bg-white border border-gray-100 rounded-xl shadow-card">
+            <h2 class="px-4 pt-3 pb-1 text-[12px] font-semibold text-gray-500">お届け先</h2>
+            <div class="p-4 pt-2 text-[13px]">
+              <dl class="space-y-2">
+                <div class="flex justify-between gap-3">
+                  <dt class="text-gray-500 shrink-0 w-28">お名前</dt>
+                  <dd class="flex-1">テスト　太郎</dd>
+                </div>
+                <div class="flex justify-between gap-3">
+                  <dt class="text-gray-500 shrink-0 w-28">お名前(フリガナ)</dt>
+                  <dd class="flex-1">テスト　タロウ</dd>
+                </div>
+                <div class="flex justify-between gap-3">
+                  <dt class="text-gray-500 shrink-0 w-28">郵便番号</dt>
+                  <dd class="flex-1">123-4567</dd>
+                </div>
+                <div class="flex justify-between gap-3">
+                  <dt class="text-gray-500 shrink-0 w-28">住所</dt>
+                  <dd class="flex-1">東京都XX区1-2-3</dd>
+                </div>
+                <div class="flex justify-between gap-3">
+                  <dt class="text-gray-500 shrink-0 w-28">電話番号</dt>
+                  <dd class="flex-1">080-1234-5678</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <!-- Delivery time card -->
+          <div class="bg-white border border-gray-100 rounded-xl shadow-card">
+            <h2 class="px-4 pt-3 pb-1 text-[12px] font-semibold text-gray-500">お届け時間</h2>
+            <div class="p-4 pt-1 text-[13px]">
+              <p class="font-medium">本日、08:00-12:00</p>
+              <p class="mt-1 text-[11px] text-gray-500">※ 配置を固定</p>
+            </div>
+          </div>
+
+          <!-- Payment method placeholder -->
+          <div class="bg-white border border-gray-100 rounded-xl shadow-card">
+            <h2 class="px-4 pt-3 pb-1 text-[12px] font-semibold text-gray-500">お支払い方法</h2>
+            <div class="p-4 pt-1 text-[13px] text-gray-700">クレジットカード（下4桁 1234）</div>
+          </div>
+        </section>
+
+        <!-- Bottom bar (確認ボタン) -->
+        <div
+          class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm bg-white/95 backdrop-blur border-t border-gray-200"
+        >
+          <div class="px-4 py-3 flex items-center gap-3">
+            <div class="flex-1">
+              <p class="text-[11px] text-gray-500 leading-tight">お支払い金額</p>
+              <p class="text-accent text-xl font-bold tabular-nums">¥4,000</p>
+            </div>
+            <button
+              class="px-5 py-3 rounded-lg bg-brand text-white font-semibold text-sm hover:bg-emerald-600 active:bg-emerald-700"
+            >
+              この内容で注文する
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
