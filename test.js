@@ -51,11 +51,8 @@ db.serialize(() => {
 // ❌ 脆弱：文字列をそのままクエリに結合するぞ
 app.get("/user", (req, res) => {
   const name = req.query.name;
-  const sql = `SELECT * FROM users WHERE name = '${name}'`;
-  console.log("実行SQL:", sql);
-  db.all(sql, [], (err, rows) => {
-    res.json(rows);
-  });
+  const sql = "SELECT * FROM users WHERE name = '" + name + "'"; // 連結
+  db.all(sql, [], (err, rows) => res.json(rows));
 });
 
 app.listen(3000, () => console.log("http://localhost:3000"));
