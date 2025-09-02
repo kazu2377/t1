@@ -35,36 +35,3 @@ export function div(a, b) {
   if (b === 0) throw new RangeError("0 で割ることはできません。");
   return a / b;
 }
-
-// vulnerable.js
-const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
-const app = express();
-const db = new sqlite3.Database(":memory:");
-
-// サンプル用のテーブル作成
-db.serialize(() => {
-  db.run("CREATE TABLE users (id INTEGER, name TEXT)");
-  db.run("INSERT INTO users VALUES (1, 'taro'), (2, 'hanako')");
-});
-
-// ❌ 脆弱：文字列をそのままクエリに結合するぞ
-app.get("/user", (req, res) => {
-  // リクエストから受け取る値は常に危険だと仮定する
-  const name = String(req.query.name || "").trim();
-  if (name.length === 0) {
-    return res.status(400).json({ error: "query parameter 'name' is required" });
-  }
-
-  // ✅ 安全：プレースホルダを使ってパラメータを渡す（SQLインジェクション防止）
-  const sql = "SELECT * FROM users WHERE name = ?";
-  db.all(sql, [name], (err, rows) => {
-    if (err) {
-      console.error("db error:", err);
-      return res.status(500).json({ error: "internal server error" });
-    }
-    res.json(rows);
-  });
-});
-
-app.listen(3000, () => console.log("http://localhost:3000"));
