@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注文確認 - Right Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            color: #111827;
+        }
+        
+        .back-arrow {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        /* Progress */
+        .progress-section {
+            background: white;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .progress-content {
+            text-align: right;
+        }
+        
+        .progress-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .dot.active {
+            background-color: #2563eb;
+        }
+        
+        .dot.inactive {
+            background-color: #d1d5db;
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            color: #2563eb;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main {
+            padding: 24px 16px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+            text-align: right;
+        }
+        
+        .card-subtitle {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+            text-align: right;
+        }
+        
+        /* Order Items */
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .item-info {
+            text-align: right;
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            color: #111827;
+        }
+        
+        .item-quantity {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .item-price {
+            text-align: right;
+            color: #111827;
+            font-weight: 500;
+            margin-left: 16px;
+        }
+        
+        /* Order Summary */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-top: 1px solid #f3f4f6;
+        }
+        
+        .summary-row:first-child {
+            border-top: none;
+        }
+        
+        .summary-label {
+            text-align: right;
+            flex: 1;
+            color: #6b7280;
+        }
+        
+        .summary-value {
+            text-align: right;
+            color: #111827;
+            margin-left: 16px;
+        }
+        
+        .summary-row.discount .summary-label,
+        .summary-row.discount .summary-value {
+            color: #059669;
+        }
+        
+        .summary-row.total {
+            padding: 12px 0;
+            border-top: 2px solid #e5e7eb;
+            margin-top: 12px;
+        }
+        
+        .summary-row.total .summary-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .summary-row.total .summary-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        /* Delivery Info */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            color: #6b7280;
+        }
+        
+        .info-value {
+            color: #111827;
+            font-weight: 500;
+        }
+        
+        /* Delivery Time */
+        .delivery-time {
+            text-align: right;
+        }
+        
+        .delivery-date {
+            color: #111827;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .delivery-slot {
+            color: #6b7280;
+        }
+        
+        /* Blue Section */
+        .blue-section {
+            background-color: #2563eb;
+            border-radius: 8px;
+            padding: 16px;
+            color: white;
+            text-align: right;
+            margin-bottom: 24px;
+        }
+        
+        .blue-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .blue-section p {
+            color: #bfdbfe;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .compare-btn {
+            background: white;
+            color: #2563eb;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .compare-btn:hover {
+            background-color: #eff6ff;
+        }
+        
+        /* Bottom Button */
+        .bottom-action {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 16px;
+        }
+        
+        .access-btn {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+            background-color: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .access-btn:hover {
+            background-color: #1d4ed8;
+        }
+        
+        /* Bottom padding */
+        .bottom-padding {
+            height: 80px;
+        }
+        
+        @media (max-width: 480px) {
+            .main {
+                padding: 16px 12px;
+            }
+            
+            .header-content {
+                padding: 12px;
+            }
+            
+            .progress-section {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <div class="header-content">
+                <button class="back-btn">
+                    <svg class="back-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    戻る
+                </button>
+                <h1 class="header-title">注文確認</h1>
+                <div style="width: 48px;"></div> <!-- Spacer for centering -->
+            </div>
+        </header>
+
+        <!-- Progress Indicator -->
+        <div class="progress-section">
+            <div class="progress-content">
+                <div class="progress-label">進捗</div>
+                <div class="progress-dots">
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot inactive"></div>
+                </div>
+                <div class="progress-text">3/4</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Order Confirmation Details -->
+            <div class="card">
+                <h2 class="card-title">注文詳細</h2>
+                
+                <!-- Items Section -->
+                <div style="margin-bottom: 16px;">
+                    <div class="order-item">
+                        <div class="item-info">
+                            <div class="item-name">商品 A</div>
+                            <div class="item-quantity">数量: 2</div>
+                        </div>
+                        <div class="item-price">¥2,400</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-info">
+                            <div class="item-name">商品 B</div>
+                            <div class="item-quantity">数量: 1</div>
+                        </div>
+                        <div class="item-price">¥1,800</div>
+                    </div>
+                </div>
+
+                <!-- Shipping -->
+                <div class="summary-row">
+                    <div class="summary-label">配送料</div>
+                    <div class="summary-value">¥300</div>
+                </div>
+
+                <!-- Coupon -->
+                <div class="summary-row discount">
+                    <div class="summary-label">クーポン割引</div>
+                    <div class="summary-value">-¥200</div>
+                </div>
+
+                <!-- Total -->
+                <div class="summary-row total">
+                    <div class="summary-label">合計</div>
+                    <div class="summary-value">¥4,300</div>
+                </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div class="card">
+                <h3 class="card-subtitle">配送情報</h3>
+                <div style="text-align: right;">
+                    <div class="info-row">
+                        <div class="info-label">お届け先:</div>
+                        <div class="info-value">田中 太郎</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">住所:</div>
+                        <div class="info-value">東京都渋谷区1-2-3</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">電話番号:</div>
+                        <div class="info-value">090-1234-5678</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Time -->
+            <div class="card">
+                <h3 class="card-subtitle">配送日時</h3>
+                <div class="delivery-time">
+                    <div class="delivery-date">2024年1月15日（月）</div>
+                    <div class="delivery-slot">午前中 (9:00-12:00)</div>
+                </div>
+            </div>
+
+            <!-- Compare Ideas Section -->
+            <div class="blue-section">
+                <h3>アイデアを比較</h3>
+                <p>他の選択肢と比較して、最適な決定を行いましょう。</p>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button class="compare-btn">比較を開始</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Action Button -->
+        <div class="bottom-action">
+            <button class="access-btn">アクセス</button>
+        </div>
+
+        <!-- Bottom padding to prevent content being hidden by fixed button -->
+        <div class="bottom-padding"></div>
+    </div>
+</body>
+</html>
