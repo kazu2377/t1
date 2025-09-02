@@ -50,9 +50,21 @@ db.serialize(() => {
 
 // ❌ 脆弱：文字列をそのままクエリに結合するぞ
 app.get("/user", (req, res) => {
-  const name = req.query.name;
-  const sql = "SELECT * FROM users WHERE name = '" + name + "'"; // 連結
-  db.all(sql, [], (err, rows) => res.json(rows));
+  // リクエストから受け取る値は常に危険だと仮定する
+  const name = String(req.query.name || "").trim();
+  if (name.length === 0) {
+    return res.status(400).json({ error: "query parameter 'name' is required" });
+  }
+
+  // ✅ 安全：プレースホルダを使ってパラメータを渡す（SQLインジェクション防止）
+  const sql = "SELECT * FROM users WHERE name = ?";
+  db.all(sql, [name], (err, rows) => {
+    if (err) {
+      console.error("db error:", err);
+      return res.status(500).json({ error: "internal server error" });
+    }
+    res.json(rows);
+  });
 });
 
 app.listen(3000, () => console.log("http://localhost:3000"));
