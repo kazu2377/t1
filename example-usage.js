@@ -1,56 +1,56 @@
-// example-usage.js - 複数の四則演算機能の使用例
+// example-usage.js - Usage examples for multiple arithmetic operations functionality
 
 import { processMultipleOperations, evaluateExpression } from './multipleOperations.js';
 
-console.log('=== 複数の四則演算機能 使用例 ===\n');
+console.log('=== Multiple Arithmetic Operations Usage Examples ===\n');
 
-// 単一式の計算
-console.log('【単一式の計算】');
+// Single expression calculation
+console.log('【Single Expression Calculation】');
 try {
   console.log('5 + 3 =', evaluateExpression('5+3'));
   console.log('12 / 4 =', evaluateExpression('12/4'));
 } catch (error) {
-  console.error('エラー:', error.message);
+  console.error('Error:', error.message);
 }
 console.log('');
 
-// 複数式の一括計算（推奨使用方法）
-console.log('【複数式の一括計算】');
+// Multiple expression batch calculation (recommended usage)
+console.log('【Multiple Expression Batch Calculation】');
 const expressions = ['1+2', '10-3', '4*6', '8/2'];
 const result = processMultipleOperations(expressions);
 
-console.log('入力:', expressions);
-console.log('結果:', result.results);
+console.log('Input:', expressions);
+console.log('Result:', result.results);
 
 if (result.hasErrors) {
-  console.log('エラーが発生しました:');
+  console.log('Errors occurred:');
   result.errors.forEach(error => {
     console.log(`  ${error.expression}: ${error.error}`);
   });
 } else {
-  console.log('すべての計算が正常に完了しました！');
+  console.log('All calculations completed successfully!');
 }
 console.log('');
 
-// 実用的な例
-console.log('【実用的な例 - 商品価格計算】');
+// Practical example
+console.log('【Practical Example - Product Price Calculation】');
 const priceCalculations = [
-  '100*1.1',    // 商品A: 100円 + 10%税
-  '250*0.8',    // 商品B: 250円の20%割引  
-  '500+50',     // 商品C: 500円 + 送料50円
-  '1000/2'      // 商品D: 1000円を2人で割り勘
+  '100*1.1',    // Product A: 100 yen + 10% tax
+  '250*0.8',    // Product B: 250 yen with 20% discount  
+  '500+50',     // Product C: 500 yen + 50 yen shipping
+  '1000/2'      // Product D: 1000 yen split between 2 people
 ];
 
 const priceResults = processMultipleOperations(priceCalculations);
-console.log('価格計算:');
+console.log('Price calculations:');
 priceCalculations.forEach((expression, index) => {
   const result = priceResults.results[index];
   if (result !== null) {
-    console.log(`  ${expression} = ${result}円`);
+    console.log(`  ${expression} = ${result} yen`);
   } else {
     const error = priceResults.errors.find(e => e.index === index);
-    console.log(`  ${expression} = エラー: ${error.error}`);
+    console.log(`  ${expression} = Error: ${error.error}`);
   }
 });
 
-console.log('\n=== 使用例終了 ===');
+console.log('\n=== Usage Examples End ===');

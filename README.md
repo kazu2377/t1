@@ -1,16 +1,16 @@
-# 複数の四則演算機能
+# Multiple Arithmetic Operations
 
-複数の四則演算（加算、減算、乗算、除算）をまとめて実行できる機能です。
+A functionality to execute multiple arithmetic operations (addition, subtraction, multiplication, division) in batch.
 
-## 機能概要
+## Feature Overview
 
-- 複数の演算式を配列で受け取り、それぞれの結果を返します
-- 不正な式やゼロ除算などのエラーハンドリングを行います
-- 結果を分かりやすくまとめて返します
+- Receives multiple arithmetic expressions as an array and returns each result
+- Handles errors such as invalid expressions and division by zero
+- Returns results in an easy-to-understand format
 
-## 使用方法
+## Usage
 
-### 基本的な使用例
+### Basic Usage Example
 
 ```javascript
 import { processMultipleOperations } from './multipleOperations.js';
@@ -18,12 +18,12 @@ import { processMultipleOperations } from './multipleOperations.js';
 const expressions = ["1+2", "10-3", "4*6", "8/2"];
 const result = processMultipleOperations(expressions);
 
-console.log('入力:', expressions);
-console.log('出力:', result.results);
-// 出力: [3, 7, 24, 4]
+console.log('Input:', expressions);
+console.log('Output:', result.results);
+// Output: [3, 7, 24, 4]
 ```
 
-### 単一式の計算
+### Single Expression Calculation
 
 ```javascript
 import { evaluateExpression } from './multipleOperations.js';
@@ -32,37 +32,37 @@ const result = evaluateExpression("5+3");
 console.log(result); // 8
 ```
 
-## 対応している演算
+## Supported Operations
 
-- **加算** (`+`): `"1+2"` → `3`
-- **減算** (`-`): `"10-3"` → `7`
-- **乗算** (`*`): `"4*6"` → `24`
-- **除算** (`/`): `"8/2"` → `4`
+- **Addition** (`+`): `"1+2"` → `3`
+- **Subtraction** (`-`): `"10-3"` → `7`
+- **Multiplication** (`*`): `"4*6"` → `24`
+- **Division** (`/`): `"8/2"` → `4`
 
-## 対応している入力形式
+## Supported Input Formats
 
-- 整数: `"5+3"`
-- 小数: `"3.5*2"`
-- 負数: `"-5+10"`, `"10+-3"`
-- 空白を含む式: `" 1 + 2 "`
+- Integers: `"5+3"`
+- Decimals: `"3.5*2"`
+- Negative numbers: `"-5+10"`, `"10+-3"`
+- Expressions with spaces: `" 1 + 2 "`
 
-## エラーハンドリング
+## Error Handling
 
-### ゼロ除算
+### Division by Zero
 
 ```javascript
 processMultipleOperations(["5/0"]);
-// 結果: { results: [null], errors: [...], hasErrors: true }
+// Result: { results: [null], errors: [...], hasErrors: true }
 ```
 
-### 不正な式
+### Invalid Expressions
 
 ```javascript
 processMultipleOperations(["abc+def"]);
-// 結果: { results: [null], errors: [...], hasErrors: true }
+// Result: { results: [null], errors: [...], hasErrors: true }
 ```
 
-### 混在する正常・異常な式
+### Mixed Valid and Invalid Expressions
 
 ```javascript
 const expressions = ["1+2", "5/0", "3*4"];
@@ -71,39 +71,39 @@ const result = processMultipleOperations(expressions);
 console.log(result.results);           // [3, null, 12]
 console.log(result.successfulResults); // [3, 12]
 console.log(result.hasErrors);         // true
-console.log(result.errors);            // エラー詳細
+console.log(result.errors);            // Error details
 ```
 
-## 返り値の形式
+## Return Value Format
 
-`processMultipleOperations()` の返り値：
+Return value of `processMultipleOperations()`:
 
 ```javascript
 {
-  results: Array<number|null>,          // すべての結果（エラーの場合はnull）
-  successfulResults: Array<number>,     // 成功した結果のみ
-  errors: Array<{                       // エラー情報
-    index: number,                      // エラーが発生した式のインデックス
-    expression: string,                 // エラーが発生した式
-    error: string                       // エラーメッセージ
+  results: Array<number|null>,          // All results (null for errors)
+  successfulResults: Array<number>,     // Successful results only
+  errors: Array<{                       // Error information
+    index: number,                      // Index of expression where error occurred
+    expression: string,                 // Expression where error occurred
+    error: string                       // Error message
   }>,
-  hasErrors: boolean                    // エラーがあるかどうか
+  hasErrors: boolean                    // Whether there are errors
 }
 ```
 
-## ファイル構成
+## File Structure
 
-- `arithmetic.js` - 基本的な四則演算関数
-- `multipleOperations.js` - 複数演算の処理機能
-- `test-multiple-operations.js` - テストファイル
-- `example-usage.js` - 使用例
+- `arithmetic.js` - Basic arithmetic operation functions
+- `multipleOperations.js` - Multiple operation processing functionality
+- `test-multiple-operations.js` - Test file
+- `example-usage.js` - Usage examples
 
-## 実行方法
+## Execution
 
 ```bash
-# テストの実行
+# Run tests
 node test-multiple-operations.js
 
-# 使用例の実行
+# Run usage examples
 node example-usage.js
 ```
