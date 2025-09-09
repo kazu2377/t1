@@ -36,6 +36,14 @@ export function div(a, b) {
   return a / b;
 }
 
+/** 余り（mod） */
+export function mod(a, b) {
+  _assertNumber(a, "a");
+  _assertNumber(b, "b");
+  if (b === 0) throw new RangeError("0 で割ることはできません。");
+  return a % b;
+}
+
 // vulnerable.js
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
