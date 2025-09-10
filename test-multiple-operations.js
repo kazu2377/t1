@@ -1,22 +1,22 @@
-// test-multiple-operations.js - Test for multiple arithmetic operations functionality
+// test-multiple-operations.js - 複数四則演算機能のテスト
 
 import { processMultipleOperations } from './multipleOperations.js';
 
-console.log('=== Multiple Arithmetic Operations Test ===\n');
+console.log('=== 複数四則演算テスト ===\n');
 
-// Basic usage example (from requirements)
-console.log('【Basic Example】');
+// 基本使用例（要件より）
+console.log('【基本例】');
 const basicExpressions = ["1+2", "10-3", "4*6", "8/2"];
-console.log('Input:', basicExpressions);
+console.log('入力:', basicExpressions);
 
 const basicResults = processMultipleOperations(basicExpressions);
-console.log('Output:', basicResults.results);
-console.log('Expected: [3, 7, 24, 4]');
-console.log('Result:', JSON.stringify(basicResults.results) === JSON.stringify([3, 7, 24, 4]) ? '✓ Success' : '✗ Failed');
+console.log('出力:', basicResults.results);
+console.log('期待値: [3, 7, 24, 4]');
+console.log('結果:', JSON.stringify(basicResults.results) === JSON.stringify([3, 7, 24, 4]) ? '✓ 成功' : '✗ 失敗');
 console.log('');
 
-// More complex examples
-console.log('【Complex Examples】');
+// より複雑な例
+console.log('【複雑な例】');
 const complexExpressions = [
   "15+25",      // 40
   "100-37",     // 63  
@@ -26,30 +26,30 @@ const complexExpressions = [
   "3.5*2",      // 7
   "9.6/1.2"     // 8
 ];
-console.log('Input:', complexExpressions);
+console.log('入力:', complexExpressions);
 
 const complexResults = processMultipleOperations(complexExpressions);
-console.log('Output:', complexResults.results);
+console.log('出力:', complexResults.results);
 console.log('');
 
-// Error handling examples
-console.log('【Error Handling Examples】');
+// エラー処理例
+console.log('【エラー処理例】');
 const mixedExpressions = [
-  "5+5",        // 10 (normal)
-  "10/0",       // Error: division by zero
-  "3*4",        // 12 (normal)
-  "abc+def",    // Error: invalid expression
-  "15-8"        // 7 (normal)
+  "5+5",        // 10 (正常)
+  "10/0",       // エラー: 0除算
+  "3*4",        // 12 (正常)
+  "abc+def",    // エラー: 不正な式
+  "15-8"        // 7 (正常)
 ];
-console.log('Input:', mixedExpressions);
+console.log('入力:', mixedExpressions);
 
 const mixedResults = processMultipleOperations(mixedExpressions);
-console.log('Output:', mixedResults.results);
-console.log('Successful results only:', mixedResults.successfulResults);
-console.log('Error details:');
+console.log('出力:', mixedResults.results);
+console.log('成功した結果のみ:', mixedResults.successfulResults);
+console.log('エラーの詳細:');
 mixedResults.errors.forEach(error => {
-  console.log(`  - Expression ${error.index + 1} (${error.expression}): ${error.error}`);
+  console.log(`  - 数式 ${error.index + 1} (${error.expression}): ${error.error}`);
 });
 console.log('');
 
-console.log('=== Test Completed ===');
+console.log('=== テスト完了 ===');

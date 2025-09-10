@@ -1,45 +1,45 @@
-// arithmetic.js - Clean arithmetic functions module
+// arithmetic.js - 四則演算関数モジュール
 
-/** @throws {TypeError} When non-numeric value is passed */
+/** @throws {TypeError} 数値以外が渡されたとき */
 function _assertNumber(n, name = "value") {
   if (typeof n !== "number" || !Number.isFinite(n)) {
-    throw new TypeError(`${name} must be a finite number (received: ${n}).`);
+    throw new TypeError(`${name} は有限な数値である必要があります（受け取った値: ${n}）。`);
   }
 }
 
-/** Addition */
+/** 足し算 */
 export function add(a, b) {
   _assertNumber(a, "a");
   _assertNumber(b, "b");
   return a + b;
 }
 
-/** Subtraction */
+/** 引き算 */
 export function sub(a, b) {
   _assertNumber(a, "a");
   _assertNumber(b, "b");
   return a - b;
 }
 
-/** Multiplication */
+/** 掛け算 */
 export function mul(a, b) {
   _assertNumber(a, "a");
   _assertNumber(b, "b");
   return a * b;
 }
 
-/** Division (prevents division by zero) */
+/** 割り算（0除算を防止） */
 export function div(a, b) {
   _assertNumber(a, "a");
   _assertNumber(b, "b");
-  if (b === 0) throw new RangeError("Cannot divide by zero.");
+  if (b === 0) throw new RangeError("0で割ることはできません。");
   return a / b;
 }
 
-/** Modulo (mod) */
+/** 余り算（mod） */
 export function mod(a, b) {
   _assertNumber(a, "a");
   _assertNumber(b, "b");
-  if (b === 0) throw new RangeError("Cannot divide by zero.");
+  if (b === 0) throw new RangeError("0で割ることはできません。");
   return a % b;
 }
