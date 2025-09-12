@@ -1,0 +1,66 @@
+@startuml
+' 値オブジェクト
+class StudentId <<ValueObject>> {
+  - value : String
+  + StudentId(value)
+  + value() : String
+}
+
+class Email <<ValueObject>> {
+  - value : String
+  + Email(value)
+  + value() : String
+}
+
+' エンティティ / アグリゲートルート
+class Student <<Entity>> {
+  - id : StudentId
+  - name : String
+  - email : Email
+  - major : String
+  - graduated : boolean
+  - Student(id, name, email, major)
+  + register(id, name, email, major) : Student
+  + changeMajor(newMajor) : void
+  + graduate() : void
+  + id() : StudentId
+  + name() : String
+  + email() : Email
+  + major() : String
+  + isGraduated() : boolean
+}
+
+' リポジトリ（インターフェース）と実装
+interface StudentRepository <<Repository>> {
+  + findById(id : StudentId) : Optional<Student>
+  + save(student : Student) : void
+}
+
+class InMemoryStudentRepository <<Infrastructure>> {
+  - store : Map<String,Student>
+  + findById(id : StudentId) : Optional<Student>
+  + save(student : Student) : void
+}
+InMemoryStudentRepository ..|> StudentRepository
+
+' アプリケーションサービス
+class StudentService <<Service>> {
+  - repo : StudentRepository
+  + StudentService(repo : StudentRepository)
+  + registerStudent(name, emailStr, major) : StudentId
+  + changeMajor(id : StudentId, newMajor) : void
+  + graduate(id : StudentId) : void
+}
+
+' エントリポイント
+class Hello <<Main>> {
+  + main(args : String[]) : void
+}
+
+' 関係
+StudentService ..> StudentRepository : depends on
+Hello ..> StudentService : uses
+Student "1" *-- "1" StudentId : has
+Student "1" *-- "1" Email : has
+
+@enduml
