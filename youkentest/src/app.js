@@ -49,6 +49,16 @@
   const qs = (sel, el = document) => el.querySelector(sel);
   const qsa = (sel, el = document) => Array.from(el.querySelectorAll(sel));
 
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${y}/${m}/${dd}`;
+  }
+
   function getGameById(id) {
     return games.find(g => g.id === id);
   }
@@ -64,10 +74,10 @@
       li.className = 'card';
       li.innerHTML = `
         <a href="./detail.html?id=${encodeURIComponent(g.id)}" aria-label="${g.title} の詳細">
-          <img class="thumb" src="${g.image || ''}" alt="${g.title} の画像" onerror="this.style.display='none'" />
+          <img class="thumb" src="${g.image || ''}" alt="${g.title} のカバー画像" onerror="this.style.display='none'" />
           <div class="card-body">
             <h2 class="title">${g.title}</h2>
-            <p class="meta">${g.genre}${g.releaseDate ? ' ・ ' + g.releaseDate : ''}</p>
+            <p class="meta">${g.genre}${g.releaseDate ? ' ・ 発売日: ' + formatDate(g.releaseDate) : ''}</p>
           </div>
         </a>
       `;
@@ -95,12 +105,12 @@
 
     card.innerHTML = `
       <div class="detail-hero">
-        <img class="detail-thumb" src="${g.image || ''}" alt="${g.title} の画像" onerror="this.style.display='none'" />
+        <img class="detail-thumb" src="${g.image || ''}" alt="${g.title} のカバー画像" onerror="this.style.display='none'" />
         <div>
           <h2 class="detail-title">${g.title}</h2>
-          <p class="detail-meta">${g.genre} ・ ${g.releaseDate}</p>
+          <p class="detail-meta">${g.genre} ・ 発売日: ${formatDate(g.releaseDate)}</p>
           <p class="detail-desc">${g.description}</p>
-          <p style="margin-top:12px"><a class="back-link" href="./list.html">← 戻る（一覧へ）</a></p>
+          <p style="margin-top:12px"><a class="back-link" href="./list.html">← 一覧へ戻る</a></p>
         </div>
       </div>
     `;
@@ -113,4 +123,3 @@
     if (page === 'detail') renderDetail();
   });
 })();
-
