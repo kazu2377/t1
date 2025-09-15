@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Console Log Sample</title>
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; padding: 2rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+    pre { background: #f6f8fa; padding: 1rem; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Console Log のサンプル</h1>
+  <p>このページは埋め込みの JavaScript がコンソールにログを出力します。開発者ツールのコンソールを開いてご確認ください。</p>
+
+  <button id="logBtn">ログを追加</button>
+  <button id="errorBtn">エラーログを追加（console.error）</button>
+  <button id="clearBtn">ログ表示用領域をクリア</button>
+
+  <h2>ページ内ログ（視覚確認用）</h2>
+  <pre id="output">—</pre>
+  
+  <h2>東京の天気</h2>
+  <button id="tokyoWeatherBtn">東京の天気を取得</button>
+  <div id="weatherBox" style="margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; background: #fafbfc;">未取得</div>
+
+  <script>
+    // 初期ログ
+    console.log('ページ読み込み: sample_with_console.html');
+    console.info('情報: 初期化処理を開始します');
+    console.debug('デバッグ: 現在の日時 =>', new Date().toISOString());
+
+    const output = document.getElementById('output');
+
+    function appendOutput(text) {
+      const now = new Date().toISOString();
+      output.textContent += `[${now}] ${text}\n`;
+    }
+
+    // ページ読み込み時の表示
+    appendOutput('ページ読み込み完了');
+
+    document.getElementById('logBtn').addEventListener('click', () => {
+      console.log('ユーザーがログ追加ボタンを押しました');
+      console.log({ action: 'addLog', when: new Date().toISOString() });
+      appendOutput('console.log を出力しました');
+    });
+
+    document.getElementById('errorBtn').addEventListener('click', () => {
+      console.error('ユーザー操作によるエラーログ（例）');
+      appendOutput('console.error を出力しました');
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      output.textContent = '';
+      console.log('ページ内ログをクリアしました');
+    });
+
+    // 捕捉されない例外のテスト（コメント解除で動作）
+    // setTimeout(() => { throw new Error('Unhandled test error'); }, 1000);
+
+    // ===== 東京の天気（Open-Meteo） =====
+    const weatherBox = document.getElementById('weatherBox');
+    const tokyoWeatherBtn = document.getElementById('tokyoWeatherBtn');
+
+    const weatherCodeJa = {
+      0: '快晴',
+      1: '晴れ', 2: '主に晴れ', 3: '曇り',
+      45: '霧', 48: '霧氷',
+      51: '霧雨(弱)', 53: '霧雨(中)', 55: '霧雨(強)',
+      56: '着氷性霧雨(弱)', 57: '着氷性霧雨(強)',
+      61: '雨(弱)', 63: '雨(中)', 65: '雨(強)',
+      66: '着氷性雨(弱)', 67: '着氷性雨(強)',
+      71: '雪(弱)', 73: '雪(中)', 75: '雪(強)', 77: '雪粒',
+      80: 'にわか雨(弱)', 81: 'にわか雨(中)', 82: 'にわか雨(激)',
+      85: 'にわか雪(弱)', 86: 'にわか雪(強)',
+      95: '雷雨(弱〜中)', 96: '雷雨(雹小)', 99: '雷雨(雹大)'
+    };
+
+    async function fetchTokyoWeather() {
+      const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.6762&longitude=139.6503&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FTokyo';
+      weatherBox.textContent = '取得中…';
+      appendOutput('東京の天気を取得中');
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const cw = data.current_weather;
+        const d0 = {
+          tmax: data?.daily?.temperature_2m_max?.[0],
+          tmin: data?.daily?.temperature_2m_min?.[0],
+          prcp: data?.daily?.precipitation_sum?.[0]
+        };
+        const code = cw?.weathercode;
+        const desc = weatherCodeJa[code] ?? `コード ${code}`;
+
+        const html = `
+          <div><strong>現在</strong>: ${cw?.temperature}°C, 風 ${cw?.windspeed} km/h, 天気: ${desc}</div>
+          <div><strong>今日</strong>: 最高 ${d0.tmax}°C / 最低 ${d0.tmin}°C, 降水量 ${d0.prcp} mm</div>
+          <div style="color:#57606a; font-size: 0.9em;">更新: ${new Date(cw?.time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}</div>
+        `;
+        weatherBox.innerHTML = html;
+        console.info('東京の天気を取得しました', { current: cw, today: d0 });
+        appendOutput('東京の天気を取得しました');
+      } catch (e) {
+        console.error('天気取得に失敗', e);
+        weatherBox.textContent = '取得に失敗しました。ネットワーク状況をご確認ください。';
+        appendOutput('東京の天気取得でエラー');
+      }
+    }
+
+    tokyoWeatherBtn.addEventListener('click', fetchTokyoWeather);
+  </script>
+</body>
+</html>
