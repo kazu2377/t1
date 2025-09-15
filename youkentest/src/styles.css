@@ -1,0 +1,72 @@
+:root {
+  --bg: #0f1115;
+  --card: #171922;
+  --text: #eef1f6;
+  --muted: #b5bdc9;
+  --accent: #4ea1ff;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 10% -20%, #1b2030 0%, var(--bg) 60%) no-repeat, var(--bg);
+}
+
+.site-header { padding: 24px 16px 8px; }
+.site-title { margin: 0; font-size: 1.4rem; letter-spacing: .02em; }
+.breadcrumb { margin-bottom: 8px; }
+.back-link { color: var(--muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 8px 16px 40px; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0; margin: 16px 0 0; list-style: none;
+}
+
+@media (min-width: 560px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 880px) {
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.card {
+  background: linear-gradient(180deg, #1a1d27 0%, var(--card) 100%);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.06);
+  overflow: hidden;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.35); }
+
+.card a { color: inherit; text-decoration: none; display: block; }
+.thumb { aspect-ratio: 16/9; width: 100%; object-fit: cover; background: #222531; }
+.card-body { padding: 12px 14px 14px; }
+.title { font-size: 1rem; margin: 0 0 6px; }
+.meta { color: var(--muted); font-size: .85rem; }
+
+.detail-card {
+  background: linear-gradient(180deg, #1a1d27 0%, var(--card) 100%);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.06);
+  padding: 16px;
+}
+.detail-hero { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 700px) {
+  .detail-hero { grid-template-columns: 2fr 3fr; }
+}
+.detail-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #222531; border-radius: 8px; }
+.detail-title { margin: 0 0 6px; font-size: 1.25rem; }
+.detail-meta { color: var(--muted); margin: 0 0 12px; }
+.detail-desc { line-height: 1.7; }
+
+.notice { color: var(--muted); }
+
