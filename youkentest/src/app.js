@@ -68,6 +68,7 @@
     const listEl = qs('#gameList');
     if (!listEl) return;
 
+    listEl.innerHTML = '';
     const frag = document.createDocumentFragment();
     games.forEach(g => {
       const li = document.createElement('li');
@@ -122,4 +123,15 @@
     if (page === 'list') renderList();
     if (page === 'detail') renderDetail();
   });
+
+  // テスト用の簡易エクスポート。通常利用には影響しない。
+  if (typeof window !== 'undefined') {
+    window.__mockApp = {
+      games,
+      formatDate,
+      getGameById,
+      renderList,
+      renderDetail
+    };
+  }
 })();
