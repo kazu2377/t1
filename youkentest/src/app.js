@@ -45,6 +45,7 @@
     }
   ];
 
+  const a = () =>console.log('ダミーの関数'); // ダミーの関数
   // Utilities ---------------------------------------------------------------
   const qs = (sel, el = document) => el.querySelector(sel);
   const qsa = (sel, el = document) => Array.from(el.querySelectorAll(sel));
