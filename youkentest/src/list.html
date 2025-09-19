@@ -10,6 +10,16 @@
     <header class="site-header">
       <h1 class="site-title">ゲーム一覧</h1>
       <p class="site-subtitle">手持ちのゲームをカードでざっと確認できます</p>
+      <form class="search" role="search" aria-label="ゲーム検索">
+        <label for="filterInput">タイトルを検索</label>
+        <input
+          type="search"
+          id="filterInput"
+          name="filter"
+          placeholder="例: Zelda"
+          autocomplete="off"
+        />
+      </form>
     </header>
 
     <main class="container">

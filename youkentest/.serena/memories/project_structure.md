@@ -1,0 +1,1 @@
+`src/`に主要画面（index/list/detail HTML）、共通スタイル`styles.css`、ロジック`app.js`。`tests/render.test.html`で簡易ブラウザテスト、`memo/`に参考モックHTML、`docs/README.md`に画面説明、`assets/`は静的ファイル置き場。

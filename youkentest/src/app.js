@@ -65,13 +65,32 @@
   }
 
   // List Rendering ----------------------------------------------------------
-  function renderList() {
+  function renderList(filterText = '') {
     const listEl = qs('#gameList');
     if (!listEl) return;
 
     listEl.innerHTML = '';
     const frag = document.createDocumentFragment();
-    games.forEach(g => {
+    const keyword = filterText.trim().toLowerCase();
+    const filtered = keyword
+      ? games.filter(g => g.title.toLowerCase().includes(keyword))
+      : games;
+
+    if (filtered.length === 0) {
+      const empty = document.createElement('li');
+      empty.className = 'card card--empty';
+      empty.innerHTML = `
+        <div class="card-body">
+          <h2 class="title">該当するゲームはありません</h2>
+          <p class="meta">キーワードを変更して検索してください。</p>
+        </div>
+      `;
+      frag.appendChild(empty);
+      listEl.appendChild(frag);
+      return;
+    }
+
+    filtered.forEach(g => {
       const li = document.createElement('li');
       li.className = 'card';
       li.innerHTML = `
@@ -121,7 +140,15 @@
   // Entry ------------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', () => {
     const page = document.body.getAttribute('data-page');
-    if (page === 'list') renderList();
+    if (page === 'list') {
+      renderList();
+      const filterInput = qs('#filterInput');
+      if (filterInput) {
+        filterInput.addEventListener('input', ev => {
+          renderList(ev.target.value || '');
+        });
+      }
+    }
     if (page === 'detail') renderDetail();
   });
 

@@ -1,0 +1,1 @@
+ビルドツール無しのプレーンHTML/CSS/バニラJavaScript構成。`src/app.js` がIIFEでモックデータと描画ロジックを提供し、HTMLから直接読み込む。テストもブラウザ上のHTMLで実行する。
