@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, Locator, test } from '@playwright/test';
 
 test('has title', async ({ page }) => {
   await page.goto('http://localhost:5173/');
@@ -26,7 +26,7 @@ test('calculator shows 200 when entering 200', async ({ page }) => {
 
   // 表示領域の候補（Calculator.jsx のクラス名を優先）
   const displaySelectors = ['.calc-display', '[data-test=display]', '#display', '.display', '[aria-label="display"]'];
-  let display = null;
+  let display: Locator | null = null;
   for (const s of displaySelectors) {
     const loc = page.locator(s);
     if (await loc.count() > 0) { display = loc.first(); break; }
@@ -68,12 +68,12 @@ test('calculator shows 200 when entering 200', async ({ page }) => {
 
   // 200 を入力（途中で表示を逐次検証）
   await press('2');
-  await expect(display.locator('span:not(.calc-error)').first()).toHaveText(/2/);
+  await expect(display!.locator('span:not(.calc-error)').first()).toHaveText(/2/);
   await press('0');
-  await expect(display.locator('span:not(.calc-error)').first()).toHaveText(/20/);
+  await expect(display!.locator('span:not(.calc-error)').first()).toHaveText(/20/);
   await press('0');
-  await expect(display.locator('span:not(.calc-error)').first()).toHaveText(/200/);
+  await expect(display!.locator('span:not(.calc-error)').first()).toHaveText(/200/);
 
-  const text = (await display.locator('span:not(.calc-error)').first().textContent())?.trim() ?? '';
+  const text = (await display!.locator('span:not(.calc-error)').first().textContent())?.trim() ?? '';
   expect(text).toBe('200');
 });
