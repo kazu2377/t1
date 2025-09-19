@@ -21,7 +21,7 @@ export function Calculator() {
         {[7,8,9,4,5,6,1,2,3].map(n => (
           <button key={n} onClick={() => inputDigit(n)}>{n}</button>
         ))}
-        <button onClick={() => inputDigit(0)} className="zero">0</button>
+        <button onClick={() => inputDigit(0)} className="zero">100</button>
         <button className="op" onClick={() => chooseOperator('+')}>+</button>
         <button className="eq" onClick={() => evaluateExpression()}>=</button>
       </div>
