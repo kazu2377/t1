@@ -23,7 +23,7 @@ describe('Calculator component', () => {
     render(<Calculator />);
     await user.click(screen.getByRole('button', { name: '8' }));
     await user.click(screen.getByRole('button', { name: '/' }));
-    // await user.click(screen.getByRole('button', { name: '0' }));
+    await user.click(screen.getByRole('button', { name: '100' }));
     await user.click(screen.getByRole('button', { name: '=' }));
     expect(screen.getByText('Error')).toBeInTheDocument();
   });
