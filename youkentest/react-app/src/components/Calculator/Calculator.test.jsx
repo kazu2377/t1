@@ -1,6 +1,10 @@
+/* eslint-env jest */
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Calculator } from "./Calculator";
+
+// 追加: linter/静的解析向けに明示的に import（ランタイムには影響なし）
+import { describe, expect, test } from "@jest/globals";
 
 describe("Calculator component", () => {
   test("表示初期値は0", () => {
