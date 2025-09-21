@@ -14,6 +14,7 @@ describe("useCalculator", () => {
 
   test("数字入力の連結", () => {
     const { result } = renderHook(() => useCalculator());
+    console.log(result.current);
     act(() => result.current.inputDigit(1));
     act(() => result.current.inputDigit(2));
     expect(result.current.state.current).toBe("12");

@@ -3,6 +3,7 @@ import { calcFee } from "./calcFee";
 
 describe("calcFee", () => {
   it("子供(5) = 1000", () => {
+    console.log("5歳の料金:", calcFee(5));
     expect(calcFee(5)).toBe(1000);
   });
 
